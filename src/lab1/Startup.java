@@ -20,8 +20,8 @@ import java.util.Scanner;
 public class Startup {
 
     public static void main(String[] args) throws IOException {
-        File data = new File(File.separatorChar + "Users" + File.separatorChar + "dsmith110"
-                + File.separatorChar + "My Documents" + File.separatorChar + "myData.txt");
+        File data = new File("src" + File.separatorChar + "Files"
+                + File.separatorChar + "myData.txt");
 
         BufferedReader in = null;
         try {
@@ -29,35 +29,20 @@ public class Startup {
             String line = in.readLine();
             while (line != null) {
                 String[] fileData = line.split("\\|");
-                System.out.println("First Name: " + fileData[0]);
-                System.out.println("Last Name: " + fileData[1]);
+                System.out.println(fileData[1] + ", " + fileData[0]);
                 line = in.readLine();  // strips out any carriage return chars
             }
 
-        } catch (IOException ioe) {
-            System.out.println("Houston, we have a problem! reading this file");
-        } finally {
-            try {
-                in.close();
-            } catch (Exception e) {
-            }
-        }
+            System.out.println("\nChallenge 2");
+            int counter = 0;
 
-        System.out.println("\nChallenge 2");
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Which record would you like to retrieve? ");
-        int input = Integer.parseInt(keyboard.nextLine());
-        int counter = 0;
-
-        try {
             in = new BufferedReader(new FileReader(data));
-            String line = in.readLine();
+            line = in.readLine();
             counter++;
             while (line != null) {
-                if (counter == input) {
+                if (counter == 2) {
                     String[] fileData = line.split("\\|");
-                    System.out.println("First Name: " + fileData[0]);
-                    System.out.println("Last Name: " + fileData[1]);
+                    System.out.println("\n" + fileData[1] + ", " + fileData[0]);
                 }
 
 
@@ -65,69 +50,41 @@ public class Startup {
                 counter++;
             }
 
-        } catch (IOException ioe) {
-            System.out.println("Houston, we have a problem! reading this file");
-        } finally {
-            try {
-                in.close();
-            } catch (Exception e) {
-            }
-        }
+            System.out.println("\nChallenge 3\n");
+            boolean append = true;
 
-        System.out.println("\nChallenge 3");
+            PrintWriter out = new PrintWriter(
+                    new BufferedWriter(
+                    new FileWriter(data, append)));
 
-        boolean append = true;   // you can change this
+            Scanner keyboard = new Scanner(System.in);
+            System.out.print("Enter First Name: ");
+            out.print("\n" +keyboard.nextLine() + "|");
+            System.out.print("Enter Last Name: ");
+            out.print(keyboard.nextLine() + "|");
+            System.out.print("Enter Street Address: ");
+            out.print(keyboard.nextLine() + "|");
+            System.out.print("Enter City: ");
+            out.print(keyboard.nextLine() + "|");
+            System.out.print("Enter State: ");
+            out.print(keyboard.nextLine() + "|");
+            System.out.print("Enter Zip: ");
+            out.print(keyboard.nextLine() + "|");
+            System.out.print("Enter Email: ");
+            out.print(keyboard.nextLine() + "|");
+            System.out.print("Enter Phone number: ");
+            out.print(keyboard.nextLine());
+            out.close();  // be sure you close your streams when done!!
 
-        // This references the file in the working directory
-        data = new File(File.separatorChar + "Users" + File.separatorChar + "dsmith110"
-                + File.separatorChar + "My Documents" + File.separatorChar + "myData.txt");
-
-        // This is where we setup our streams (append = false means overwrite)
-        // new FileWriter() creates the file if doesn't exit
-        PrintWriter out = new PrintWriter(
-                new BufferedWriter(
-                new FileWriter(data, append)));
-
-        // print statements do actual work of writing data
-        // note that print statements work similar to Sytem.out.println,
-        // where data is converted to strings
-
-        System.out.print("Enter First Name: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter Last Name: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter Street Address: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter City: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter State: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter Zip: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter Email: ");
-        out.print(keyboard.nextLine() + "|");
-        System.out.print("Enter Phone number: ");
-        out.print(keyboard.nextLine() + "|");
-        out.close();  // be sure you close your streams when done!!
-
-        System.out.print("Which record would you like to retrieve? ");
-        input = Integer.parseInt(keyboard.nextLine());
-        counter = 0;
-
-        try {
             in = new BufferedReader(new FileReader(data));
-            String line = in.readLine();
-            counter++;
+            line = in.readLine();
+
+            in = new BufferedReader(new FileReader(data));
+            line = in.readLine();
             while (line != null) {
-                if (counter == input) {
-                    String[] fileData = line.split("\\|");
-                    System.out.println("First Name: " + fileData[0]);
-                    System.out.println("Last Name: " + fileData[1]);
-                }
-
-
+                String[] fileData = line.split("\\|");
+                System.out.println(fileData[1] + ", " + fileData[0]);
                 line = in.readLine();  // strips out any carriage return chars
-                counter++;
             }
 
         } catch (IOException ioe) {
@@ -138,5 +95,6 @@ public class Startup {
             } catch (Exception e) {
             }
         }
+
     }
 }

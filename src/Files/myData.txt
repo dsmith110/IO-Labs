@@ -1,0 +1,3 @@
+Dan|Smith|111 West St|Baraboo|WI|53913|ds@mail.com|608-434-9999
+Bob|Washington|123 North St|Milwaukee|WI|55555|bw@mail.com|333-343-3456
+Sally|Jones|555 Main St|Pewaukee|WI|53455|sj@mail.com|444-456-6789
