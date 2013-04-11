@@ -25,8 +25,8 @@ public class FileManagement {
         this.frs = frs;
     }
     
-    public void searchTextRecord(int fileNumber) throws IOException {
-        frs.searchTextFile(fileNumber);
+    public void searchTextRecord(String recordNumber) throws IOException {
+        frs.searchTextFile(recordNumber);
     }
     
     public String getRecordName() throws NullPointerException {

@@ -12,21 +12,32 @@ public class InputOutputGUI {
     InputOutputGUI() {}
     
     public void startGUI(FileManagement fm) {
-        
-        try {
-           this.fm = fm;
-           int recordNum = Integer.parseInt(JOptionPane.showInputDialog(
-                   null, "Enter the record you want to search")); 
-           fm.searchTextRecord(recordNum);
-           JOptionPane.showMessageDialog(null, fm.getRecordName() + "\n" +
-                   fm.getRecordStreetAddress() + "\n" + fm.getRecordCity() + "\n"
-                    + fm.getRecordState() +
-                   "\n" + fm.getRecordZip());
-        } catch(IOException ioe) {
-            JOptionPane.showMessageDialog(null, ioe.getMessage());
-        } catch(NullPointerException npe) {
-            JOptionPane.showMessageDialog(null, npe.getMessage());
-        }
+        this.fm = fm;
+        String recordNumTemp;
+        boolean isError = false;
+        do {
+            try {
+                recordNumTemp = (JOptionPane.showInputDialog(
+                        null, "Enter the record you want to search"));
+
+                fm.searchTextRecord(recordNumTemp);
+                JOptionPane.showMessageDialog(null, fm.getRecordName() + "\n"
+                        + fm.getRecordStreetAddress() + "\n" + fm.getRecordCity() + "\n"
+                        + fm.getRecordState()
+                        + "\n" + fm.getRecordZip());
+                isError = false;
+            } catch (IOException ioe) {
+                isError = true;
+                JOptionPane.showMessageDialog(null, ioe.getMessage());  
+            } catch (NullPointerException npe) {
+                isError = true;
+                JOptionPane.showMessageDialog(null, npe.getMessage());
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, nfe.getMessage());
+                isError = true;
+            }
+        } while(isError);
+
     }
 
 }

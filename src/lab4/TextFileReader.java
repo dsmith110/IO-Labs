@@ -19,7 +19,23 @@ public class TextFileReader implements FileReaderStrategy {
     
     
     @Override
-    public void searchTextFile(int fileNumber) throws IOException {
+    public void searchTextFile(String recordNumberTemp) throws RuntimeException, IOException {
+        if (recordNumberTemp == null) {
+            System.exit(0);
+        }
+        
+        if(recordNumberTemp == "") {
+            throw new IllegalArgumentException(NFE_ERR_MSG);
+        }
+        char[] charArray = recordNumberTemp.toCharArray();
+        for (char c : charArray) {
+            if(!Character.isDigit(c)) {
+                throw new NumberFormatException(NFE_ERR_MSG);
+            }
+        }
+        int fileNumber = Integer.parseInt(recordNumberTemp);
+
+
         BufferedReader in = null;
         if (data == null || data.length() == 0) {
             throw new IOException(IO_ERR_MSG);
@@ -36,7 +52,7 @@ public class TextFileReader implements FileReaderStrategy {
                 counter++;
             }
         }
-        
+
     }
 
     @Override
